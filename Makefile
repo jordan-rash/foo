@@ -12,7 +12,7 @@ all: build
 
 build:
 	@$(CARGO) build	
-	wash claims sign $(DEBUG)/{{crate_name}}.wasm -c wasmcloud:httpserver --name "{{crate_name}}" --ver $(VERSION) --rev 0
+	wash claims sign $(DEBUG)/client_test.wasm -q -h -l --name "client_test" --ver $(VERSION) --rev 0
 
 check:
 	@$(CARGO) check
@@ -31,4 +31,4 @@ update:
 
 release:
 	@$(CARGO) build --release	
-	wash claims sign $(RELEASE)/{{crate_name}}.wasm -c wasmcloud:httpserver --name "{{crate_name}}" --ver $(VERSION) --rev 0
+	wash claims sign $(RELEASE)/client_test.wasm -q -h -l --name "client_test" --ver $(VERSION) --rev 0

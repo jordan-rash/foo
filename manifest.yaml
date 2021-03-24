@@ -7,6 +7,8 @@ capabilities:
     link_name: default
   - image_ref: wasmcloud.azurecr.io/httpclient:0.2.2
     link_name: default
+  - image_ref: wasmcloud.azurecr.io/logging:0.9.3
+    link_name: default
 links:
   - actor: ${CLIENT_ACTOR:MDL37WRQWHZWAZISED3X2BXQR6MCI45AIIFS5EVS2QMV6BVTIRR3IMM2}
     provider_id: "VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M"
@@ -17,4 +19,8 @@ links:
   - actor: ${CLIENT_ACTOR:MDL37WRQWHZWAZISED3X2BXQR6MCI45AIIFS5EVS2QMV6BVTIRR3IMM2}
     provider_id: "VCCVLH4XWGI3SGARFNYKYT2A32SUYA2KVAIV2U2Q34DQA7WWJPFRKIKM"
     contract_id: "wasmcloud:httpclient"
+    link_name: default
+  - actor: ${CLIENT_ACTOR:MDL37WRQWHZWAZISED3X2BXQR6MCI45AIIFS5EVS2QMV6BVTIRR3IMM2}
+    provider_id: "VCCANMDC7KONJK435W6T7JFEEL7S3ZG6GUZMZ3FHTBZ32OZHJQR5MJWZ"
+    contract_id: "wasmcloud:logging"
     link_name: default
