@@ -13,7 +13,7 @@ fn init() {
 }
 
 fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
-                logging::default().write_log("", "info", "Received Request");
+    logging::default().write_log("", "info", "Received Request");
     if msg.method == "GET".to_string() {
         let res = match httpclient::default().request(
             msg.method,
