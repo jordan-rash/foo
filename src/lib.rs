@@ -8,27 +8,33 @@ const API_URL: &str = "https://ifconfig.io";
 
 #[core::init]
 fn init() {
-    httpserver::Handlers::register_handle_request(get_proxy);
-    core::Handlers::register_health_request(health);
+    httpserver::Handlers::register_handle_request(get_ip);
     logging::enable_macros();
 }
 
-fn health(_: core::HealthCheckRequest) -> HandlerResult<core::HealthCheckResponse> {
-    Ok(core::HealthCheckResponse::healthy())
-}
-
-fn get_proxy(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
-        logging::default().write_log("", "info", "in get_proxy");
+fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
+                logging::default().write_log("", "info", "Received Request");
     if msg.method == "GET".to_string() {
-        logging::default().write_log("", "info", "GOT GET");
-        let res =
-            httpclient::default().request(msg.method, API_URL.to_string(), msg.header, vec![])?;
-        Ok(httpserver::Response {
-            status_code: res.status_code,
-            status: res.status,
-            header: res.header,
-            body: res.body,
-        })
+        let res = match httpclient::default().request(
+            msg.method,
+            API_URL.to_string(),
+            msg.header,
+            vec![],
+        ) {
+            Ok(res) => {
+                logging::default().write_log("", "info", "Got GET");
+                return Ok(httpserver::Response {
+                    status_code: res.status_code,
+                    status: res.status,
+                    header: res.header,
+                    body: res.body,
+                });
+            }
+            Err(e) => { 
+                logging::default().write_log("", "error", &e.to_string());
+                return Err(e);
+            },
+        };
     } else {
         Ok(httpserver::Response::internal_server_error(
             "Only GET requests can be proxied with this actor",
