@@ -5,7 +5,7 @@ extern crate wasmcloud_actor_http_server as httpserver;
 extern crate wasmcloud_actor_logging as logging;
 use std::collections::HashMap;
 
-const API_URL: &str = "https://ifconfig.io";
+const API_URL: &str = "http://worldtimeapi.org/api/timezone/America/Denver";
 
 #[core::init]
 fn init() {
@@ -20,17 +20,21 @@ fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
         "GET" => {
             logging::default().write_log("", "info", "Got GET");
             let res = match httpclient::default().request(
-                msg.method,
+                "GET".to_string(),
                 API_URL.to_string(),
                 msg.header,
                 vec![],
             ) {
                 Ok(res) => {
                     logging::default().write_log("", "debug", "Returning Response");
+                    let h = HashMap::new();
+                    //h.insert("User-Agent".to_string(), "curl/7.64.1".to_string());
+                    //h.insert("Accept".to_string(), "*/*".to_string());
+                    //h.insert("Host".to_string(), "worldtimeapi.org".to_string());
                     return Ok(httpserver::Response {
                         status_code: res.status_code,
                         status: res.status,
-                        header: res.header,
+                        header: h,
                         body: res.body,
                     });
                 }
