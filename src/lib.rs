@@ -30,7 +30,6 @@ fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
                 vec![],
             ) {
                 Ok(res) => {
-                    logging::default().write_log("", "debug", "Returning Response");
                     return Ok(httpserver::Response {
                         status_code: res.status_code,
                         status: res.status,
@@ -49,7 +48,7 @@ fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
                     });
                 }
                 _ => {
-                    logging::default().write_log("", "debug", "Hit default");
+                    logging::default().write_log("", "info", "Hit default");
                     let h = HashMap::new();
                     return Ok(httpserver::Response {
                         status_code: 404,
@@ -61,15 +60,6 @@ fn get_ip(msg: httpserver::Request) -> HandlerResult<httpserver::Response> {
             };
             logging::default().write_log("", "debug", "Got to return statement");
             return res;
-        }
-        "POST" => {
-            logging::default().write_log("", "info", "Got POST");
-            return Ok(httpserver::Response {
-                status_code: 200,
-                status: "OK".to_string(),
-                header: msg.header,
-                body: vec![],
-            });
         }
         _ => {
             logging::default().write_log("", "debug", "2");
