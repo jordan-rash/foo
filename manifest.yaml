@@ -5,7 +5,7 @@ actors:
 capabilities:
   - image_ref: wasmcloud.azurecr.io/httpserver:0.12.1
     link_name: default
-  - image_ref: localhost:5000/httpclient:0.2.0
+  - image_ref: wasmcloud.azurecr.io/httpclient:0.2.3
     link_name: default
   - image_ref: wasmcloud.azurecr.io/logging:0.9.3
     link_name: default
@@ -17,7 +17,7 @@ links:
     values:
       PORT: 8080
   - actor: ${CLIENT_ACTOR:MDL37WRQWHZWAZISED3X2BXQR6MCI45AIIFS5EVS2QMV6BVTIRR3IMM2}
-    provider_id: "VC2CJO7MRDLEUBBSLZ5S44VABW6VG3YO34UFCGHHEKWPOWKV3KVOXUOL"
+    provider_id: "VCCVLH4XWGI3SGARFNYKYT2A32SUYA2KVAIV2U2Q34DQA7WWJPFRKIKM"
     contract_id: "wasmcloud:httpclient"
     link_name: default
   - actor: ${CLIENT_ACTOR:MDL37WRQWHZWAZISED3X2BXQR6MCI45AIIFS5EVS2QMV6BVTIRR3IMM2}
